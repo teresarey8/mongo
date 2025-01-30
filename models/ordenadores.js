@@ -27,15 +27,21 @@ const BuscaPrimero = () => {
 const buscaTodos = () => {
 
     //buscamos todos los registros
-    Ordenador.find()
+    return Ordenador.find()
         .then(ordenadores => {
             if (ordenadores.length > 0) {
                 console.log('Ordenadores encontrados', ordenadores);
+                return ordenadores;
             } else {
                 console.log('No se encontró ningún registro')
+                return null;
             }
         })
-        .catch(err => console.log('Error al obtener el ordenador', err));
+        .catch(err => {
+            console.error('Error al obtener el ordenador', err)
+            //se dispara con throw
+            throw err;
+        });
 }
 
 const buscarPorId = (id) => {
@@ -103,4 +109,4 @@ const borraOrdenador = (idOrdenadorParaBorrar) => {
 
 }
 
-module.exports = { buscaPrecioMayor, buscaTodos, buscarPorId, BuscaPrimero, actualizarOrdenador, crearNuevoOrdenador , borraOrdenador }
+module.exports = { buscaPrecioMayor, buscaTodos, buscarPorId, BuscaPrimero, actualizarOrdenador, crearNuevoOrdenador, borraOrdenador }
